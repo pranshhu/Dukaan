@@ -1,7 +1,7 @@
 "use client"
 
 import { PRODUCT_CATEGORIES } from "@/config"
-import { Button } from "./button"
+import { Button } from "./ui/button"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
