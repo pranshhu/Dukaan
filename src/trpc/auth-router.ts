@@ -1,8 +1,7 @@
+import { TRPCError } from "@trpc/server";
+import { getPayloadClient } from "../get-payload";
 import { AuthCredentialsValidator } from "../lib/validators/account-credentials-validator";
 import { publicProcedure, router } from "./trpc";
-import { getPayloadClient } from "../get-payload";
-import { TRPCClientError } from "@trpc/client";
-import { TRPCError } from "@trpc/server";
 
 export const authRouter = router({
     createPayloadUser: publicProcedure.input(AuthCredentialsValidator).mutation(async ({ input }) => {
