@@ -12,16 +12,22 @@ export const authRouter = router({
             collection: "users",
             where: {
                 email: {
-                    equals: email,
+                    equals: email,      
                 },
             },
         })
 
-        if(users.length !== 0) throw new TRPCError({code: "CONFLICT"})
+        if(users.length !== 0) throw new TRPCError({code: 'CONFLICT'})
 
         await payload.create({
             collection: "users",
-            data: {},
+            data: {
+                email,
+                password,
+                role: 'user',
+            },
         })
+
+        return {sucess:true, sentToEmail: email}
     }),
 })
