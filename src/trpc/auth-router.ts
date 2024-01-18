@@ -13,12 +13,12 @@ export const authRouter = router({
             collection: "users",
             where: {
                 email: {
-                    equals: email,      
+                    equals: email,
                 },
             },
         })
 
-        if(users.length !== 0) throw new TRPCError({code: 'CONFLICT'})
+        if (users.length !== 0) throw new TRPCError({ code: 'CONFLICT' })
 
         await payload.create({
             collection: "users",
@@ -29,8 +29,21 @@ export const authRouter = router({
             },
         })
 
-        return {sucess:true, sentToEmail: email}
+        return { sucess: true, sentToEmail: email }
     }),
 
-    verifyEmail: publicProcedure.input(z.object({token: z.string()})).mutation(() => {}),
+    verifyEmail: publicProcedure.input(z.object({ token: z.string() })).query(async ({ input }) => {
+        const { token } = input
+
+        const payload = await getPayloadClient()
+
+        const isVerified = await payload.verifyEmail({
+            collection: "users",
+            token,
+        })
+
+        if (!isVerified) throw new TRPCError({ code: "UNAUTHORIZED" })
+
+        return { sucess: true }
+    }),
 })
