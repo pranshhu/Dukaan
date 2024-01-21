@@ -55,4 +55,4 @@ const UserAccountNav = ({ user }: { user: User }) => {
   )
 }
 
-export default UserAccountNav 
+export default UserAccountNav
